@@ -70,22 +70,27 @@ export const categories = [
 export const settings = [
   {
     title: "My Bookings",
+    slug: "profile.myBookings",
     icon: icons.calendar,
   },
   {
     title: "Payments",
+    slug: "payments",
     icon: icons.wallet,
   },
   {
     title: "Profile",
+    slug: "profile.title",
     icon: icons.person,
   },
   {
     title: "Notifications",
+    slug: "profile.notifications",
     icon: icons.bell,
   },
   {
     title: "Security",
+    slug: "profile.security",
     icon: icons.shield,
   },
   // {
@@ -94,10 +99,12 @@ export const settings = [
   // },
   {
     title: "Help Center",
+    slug: "profile.helpCenter",
     icon: icons.info,
   },
   {
     title: "Invite Friends",
+    slug: "profile.inviteFriends",
     icon: icons.people,
   },
 ];
