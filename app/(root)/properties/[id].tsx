@@ -86,11 +86,7 @@ const Property = () => {
             <View className="flex flex-row items-center w-full justify-between">
               <TouchableOpacity
                 onPress={() => {
-                  if (router.canGoBack()) {
-                    router.back();
-                  } else {
-                    router.replace("/(root)/(tabs)");
-                  }
+                  router.replace("/(root)/(tabs)");
                 }}
                 className="flex flex-row bg-primary-200 rounded-full size-11 items-center justify-center"
               >
