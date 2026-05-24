@@ -3,6 +3,7 @@ import { Image, ImageSourcePropType, Text, View } from "react-native";
 
 import icons from "@/constants/icons";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
+import { useTranslation } from "react-i18next";
 
 const TabIcon = ({
   focused,
@@ -34,7 +35,9 @@ const TabIcon = ({
 
 const TabsLayout = () => {
   const inset = useSafeAreaInsets();
-  const tabBarHeight = inset.bottom > 0 ? 70 + inset.bottom : 70;
+  const tabBarHeight = inset.bottom > 0 ? 50 + inset.bottom : 50;
+  const { t } = useTranslation();
+
   return (
     <Tabs
       screenOptions={{
@@ -55,7 +58,11 @@ const TabsLayout = () => {
           title: "Home",
           headerShown: false,
           tabBarIcon: ({ focused }) => (
-            <TabIcon focused={focused} icon={icons.home} title="Home" />
+            <TabIcon
+              focused={focused}
+              icon={icons.home}
+              title={t("tabs.home")}
+            />
           ),
         }}
       />
@@ -65,7 +72,11 @@ const TabsLayout = () => {
           title: "Explore",
           headerShown: false,
           tabBarIcon: ({ focused }) => (
-            <TabIcon focused={focused} icon={icons.search} title="Explore" />
+            <TabIcon
+              focused={focused}
+              icon={icons.search}
+              title={t("tabs.explore")}
+            />
           ),
         }}
       />
@@ -75,7 +86,11 @@ const TabsLayout = () => {
           title: "Profile",
           headerShown: false,
           tabBarIcon: ({ focused }) => (
-            <TabIcon focused={focused} icon={icons.person} title="Profile" />
+            <TabIcon
+              focused={focused}
+              icon={icons.person}
+              title={t("tabs.profile")}
+            />
           ),
         }}
       />

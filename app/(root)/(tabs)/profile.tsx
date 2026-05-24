@@ -40,7 +40,7 @@ const SettingsItem = ({
 }: SettingsItemProp) => (
   <TouchableOpacity
     onPress={onPress}
-    className="flex flex-row items-center justify-between py-3.5"
+    className="flex flex-row items-center justify-between py-3"
   >
     <View className="flex flex-row items-center gap-3">
       <Image source={icon} className="size-6" />

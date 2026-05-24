@@ -2,6 +2,11 @@ export default {
   welcome: "Welcome to Restate!",
   home: "Home",
   explore: "Explore",
+  tabs: {
+    home: "Home",
+    explore: "Explore",
+    profile: "Profile",
+  },
   profile: {
     title: "Profile",
     language: "Language",
