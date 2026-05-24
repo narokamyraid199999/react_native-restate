@@ -1,0 +1,54 @@
+{
+  "cli": {
+    "version": ">= 18.13.0",
+    "appVersionSource": "remote"
+  },
+  "build": {
+    "development": {
+      "developmentClient": true,
+      "distribution": "internal",
+      "env": {
+        "EXPO_PUBLIC_APPWRITE_ENDPOINT": "https://fra.cloud.appwrite.io/v1",
+        "EXPO_PUBLIC_APPWRITE_PROJECT_ID": "6a0f6c120034a73c0396",
+        "EXPO_PUBLIC_APPWRITE_PROJECT_NAME": "DEMO_Realestate",
+        "EXPO_PUBLIC_APPWRITE_DATABASE_ID": "6a104a2d000281bcce10",
+        "EXPO_PUBLIC_APPWRITE_GALLERIES_COLLECTION_ID": "galleries",
+        "EXPO_PUBLIC_APPWRITE_REVIEWS_COLLECTION_ID": "reviews",
+        "EXPO_PUBLIC_APPWRITE_AGENTS_COLLECTION_ID": "agents",
+        "EXPO_PUBLIC_APPWRITE_PROPERTIES_COLLECTION_ID": "properties",
+        "EXPO_PUBLIC_APPWRITE_BUCKET_ID": "6a10500c002df6ab468d"
+      }
+    },
+    "preview": {
+      "distribution": "internal",
+      "android": {
+        "buildType": "apk"
+      },
+      "env": {
+        "EXPO_PUBLIC_APPWRITE_ENDPOINT": "https://fra.cloud.appwrite.io/v1",
+        "EXPO_PUBLIC_APPWRITE_PROJECT_ID": "6a0f6c120034a73c0396",
+        "EXPO_PUBLIC_APPWRITE_PROJECT_NAME": "DEMO_Realestate",
+        "EXPO_PUBLIC_APPWRITE_DATABASE_ID": "6a104a2d000281bcce10",
+        "EXPO_PUBLIC_APPWRITE_GALLERIES_COLLECTION_ID": "galleries",
+        "EXPO_PUBLIC_APPWRITE_REVIEWS_COLLECTION_ID": "reviews",
+        "EXPO_PUBLIC_APPWRITE_AGENTS_COLLECTION_ID": "agents",
+        "EXPO_PUBLIC_APPWRITE_PROPERTIES_COLLECTION_ID": "properties",
+        "EXPO_PUBLIC_APPWRITE_BUCKET_ID": "6a10500c002df6ab468d"
+      }
+    },
+    "production": {
+      "autoIncrement": true
+    },
+    "development-simulator": {
+      "developmentClient": true,
+      "distribution": "internal",
+      "ios": {
+        "simulator": true
+      },
+      "environment": "development"
+    }
+  },
+  "submit": {
+    "production": {}
+  }
+}

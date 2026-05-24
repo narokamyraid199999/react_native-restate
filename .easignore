@@ -1,0 +1,88 @@
+# Dependencies
+node_modules
+
+# Expo
+.expo
+.expo-shared
+web-build
+
+# Git
+.git
+.gitignore
+
+# Logs
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+
+# Metro / React Native
+.metro-health-check*
+metro-cache
+
+# Build outputs
+dist
+build
+coverage
+
+# Android generated files
+android/.gradle
+android/build
+android/app/build
+android/
+.idea/
+
+# iOS generated files
+ios/build
+ios/Pods
+
+# EAS
+.eas
+*.keystore
+
+# Environment local files
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+
+# Temporary files
+*.tmp
+*.temp
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Large unnecessary files
+*.apk
+*.aab
+*.ipa
+*.zip
+*.rar
+*.7z
+*.psd
+*.ai
+
+# Video files
+*.mp4
+*.mov
+*.avi
+*.mkv
+
+# Cache
+.cache
+
+# TypeScript cache
+*.tsbuildinfo
+
+# VSCode
+.vscode
+
+# Tests
+__tests__
+coverage
+
+# Optional: ignore screenshots/docs if not needed
+docs
+screenshots

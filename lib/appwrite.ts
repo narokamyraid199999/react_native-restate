@@ -1,18 +1,20 @@
 import {
   Client,
   Account,
-  ID,
   Databases,
   OAuthProvider,
   Avatars,
   Query,
   Storage,
 } from "react-native-appwrite";
-import * as Linking from "expo-linking";
-import { openAuthSessionAsync } from "expo-web-browser";
+import { makeRedirectUri } from "expo-auth-session";
+import * as WebBrowser from "expo-web-browser";
+
+WebBrowser.maybeCompleteAuthSession();
 
 export const config = {
-  platform: "com.jsm.restate",
+  platform: "com.osamaoth.restate",
+  scheme: `appwrite-callback-${process.env.EXPO_PUBLIC_APPWRITE_PROJECT_ID}`,
   endpoint: process.env.EXPO_PUBLIC_APPWRITE_ENDPOINT,
   projectId: process.env.EXPO_PUBLIC_APPWRITE_PROJECT_ID,
   databaseId: process.env.EXPO_PUBLIC_APPWRITE_DATABASE_ID,
@@ -38,27 +40,34 @@ export const storage = new Storage(client);
 
 export async function login() {
   try {
-    const redirectUri = Linking.createURL("/");
+    // Use Expo AuthSession proxy in Expo Go, otherwise custom scheme redirects often fail.
+    // For standalone apps, this still works if the redirect URI is allowed in Appwrite.
+    const redirectUri = (makeRedirectUri as any)({
+      scheme: config.scheme,
+      useProxy: true,
+    });
 
-    const response = await account.createOAuth2Token(
-      OAuthProvider.Google,
-      redirectUri
-    );
-    if (!response) throw new Error("Create OAuth2 token failed");
+    const loginUrl = account.createOAuth2Token({
+      provider: OAuthProvider.Google,
+      success: redirectUri,
+      failure: redirectUri,
+    });
+    if (!loginUrl) throw new Error("Create OAuth2 token failed");
 
-    const browserResult = await openAuthSessionAsync(
-      response.toString(),
-      redirectUri
+    const browserResult = await WebBrowser.openAuthSessionAsync(
+      loginUrl.toString(),
+      redirectUri,
     );
-    if (browserResult.type !== "success")
+    if (browserResult.type !== "success" || !browserResult.url) {
       throw new Error("Create OAuth2 token failed");
+    }
 
     const url = new URL(browserResult.url);
-    const secret = url.searchParams.get("secret")?.toString();
-    const userId = url.searchParams.get("userId")?.toString();
+    const secret = url.searchParams.get("secret");
+    const userId = url.searchParams.get("userId");
     if (!secret || !userId) throw new Error("Create OAuth2 token failed");
 
-    const session = await account.createSession(userId, secret);
+    const session = await account.createSession({ userId, secret });
     if (!session) throw new Error("Failed to create session");
 
     return true;
@@ -82,8 +91,7 @@ export async function getCurrentUser() {
   try {
     const result = await account.get();
     if (result.$id) {
-      const userAvatar = avatar.getInitials(result.name);
-
+      const userAvatar = avatar.getInitialsURL(result.name);
       return {
         ...result,
         avatar: userAvatar.toString(),
@@ -102,7 +110,7 @@ export async function getLatestProperties() {
     const result = await databases.listDocuments(
       config.databaseId!,
       config.propertiesCollectionId!,
-      [Query.orderAsc("$createdAt"), Query.limit(5)]
+      [Query.orderAsc("$createdAt"), Query.limit(5)],
     );
 
     return result.documents;
@@ -133,7 +141,7 @@ export async function getProperties({
           Query.search("name", query),
           Query.search("address", query),
           Query.search("type", query),
-        ])
+        ]),
       );
 
     if (limit) buildQuery.push(Query.limit(limit));
@@ -141,7 +149,7 @@ export async function getProperties({
     const result = await databases.listDocuments(
       config.databaseId!,
       config.propertiesCollectionId!,
-      buildQuery
+      buildQuery,
     );
 
     return result.documents;
@@ -157,7 +165,12 @@ export async function getPropertyById({ id }: { id: string }) {
     const result = await databases.getDocument(
       config.databaseId!,
       config.propertiesCollectionId!,
-      id
+      id,
+      [
+        Query.select(["*", "agent.*"]),
+        Query.select(["*", "reviews.*"]),
+        Query.select(["*", "gallery.*"]),
+      ],
     );
     return result;
   } catch (error) {

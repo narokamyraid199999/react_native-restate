@@ -8,7 +8,7 @@ interface GlobalContextType {
   isLogged: boolean;
   user: User | null;
   loading: boolean;
-  refetch: () => void;
+  refetch: () => Promise<void>;
 }
 
 interface User {
@@ -41,7 +41,9 @@ export const GlobalProvider = ({ children }: GlobalProviderProps) => {
         isLogged,
         user,
         loading,
-        refetch,
+        refetch: async () => {
+          await refetch({});
+        },
       }}
     >
       {children}

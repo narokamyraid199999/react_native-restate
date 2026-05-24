@@ -6,7 +6,8 @@ import {
   TouchableOpacity,
   View,
   Dimensions,
-  Platform,
+  ActivityIndicator,
+  RefreshControl,
 } from "react-native";
 import { router, useLocalSearchParams } from "expo-router";
 
@@ -17,24 +18,55 @@ import { facilities } from "@/constants/data";
 
 import { useAppwrite } from "@/lib/useAppwrite";
 import { getPropertyById } from "@/lib/appwrite";
+import { useSafeAreaInsets } from "react-native-safe-area-context";
 
 const Property = () => {
   const { id } = useLocalSearchParams<{ id?: string }>();
 
   const windowHeight = Dimensions.get("window").height;
 
-  const { data: property } = useAppwrite({
+  const insets = useSafeAreaInsets();
+
+  const {
+    data: property,
+    loading,
+    refetch,
+  } = useAppwrite({
     fn: getPropertyById,
     params: {
       id: id!,
     },
   });
 
+  const handleRefresh = async () => {
+    try {
+      await refetch({ id: id! });
+    } catch (error) {
+      console.error("Failed to refresh:", error);
+    }
+  };
+
+  if (loading) {
+    return (
+      <View className="bg-white h-full flex justify-center items-center">
+        <ActivityIndicator className="text-primary-300" size="large" />
+      </View>
+    );
+  }
+
   return (
-    <View>
+    <View className="flex-1 bg-white relative">
       <ScrollView
         showsVerticalScrollIndicator={false}
-        contentContainerClassName="pb-32 bg-white"
+        contentContainerClassName="bg-white"
+        refreshControl={
+          <RefreshControl
+            refreshing={loading}
+            onRefresh={handleRefresh}
+            colors={["#4040d8"]}
+          ></RefreshControl>
+        }
+        contentContainerStyle={{ paddingBottom: insets.bottom + 120 }}
       >
         <View className="relative w-full" style={{ height: windowHeight / 2 }}>
           <Image
@@ -49,13 +81,17 @@ const Property = () => {
 
           <View
             className="z-50 absolute inset-x-7"
-            style={{
-              top: Platform.OS === "ios" ? 70 : 20,
-            }}
+            style={{ top: insets.top > 0 ? insets.top + 10 : 20 }}
           >
             <View className="flex flex-row items-center w-full justify-between">
               <TouchableOpacity
-                onPress={() => router.back()}
+                onPress={() => {
+                  if (router.canGoBack()) {
+                    router.back();
+                  } else {
+                    router.replace("/(root)/(tabs)");
+                  }
+                }}
                 className="flex flex-row bg-primary-200 rounded-full size-11 items-center justify-center"
               >
                 <Image source={icons.backArrow} className="size-5" />
@@ -88,7 +124,8 @@ const Property = () => {
             <View className="flex flex-row items-center gap-2">
               <Image source={icons.star} className="size-5" />
               <Text className="text-black-200 text-sm mt-1 font-rubik-medium">
-                {property?.rating} ({property?.reviews.length} reviews)
+                {property?.rating} {property?.reviews.length}
+                reviews)
               </Text>
             </View>
           </View>
@@ -161,7 +198,7 @@ const Property = () => {
               <View className="flex flex-row flex-wrap items-start justify-start mt-2 gap-5">
                 {property?.facilities.map((item: string, index: number) => {
                   const facility = facilities.find(
-                    (facility) => facility.title === item
+                    (facility) => facility.title === item,
                   );
 
                   return (
@@ -229,7 +266,7 @@ const Property = () => {
             />
           </View>
 
-          {property?.reviews.length > 0 && (
+          {property?.reviews?.length > 0 && (
             <View className="mt-7">
               <View className="flex flex-row items-center justify-between">
                 <View className="flex flex-row items-center">
@@ -254,7 +291,10 @@ const Property = () => {
         </View>
       </ScrollView>
 
-      <View className="absolute bg-white bottom-0 w-full rounded-t-2xl border-t border-r border-l border-primary-200 p-7">
+      <View
+        className="absolute bg-white bottom-0 w-full rounded-t-2xl border-t border-r border-l border-primary-200 p-7"
+        style={{ paddingBottom: insets.bottom > 0 ? insets.bottom + 10 : 20 }}
+      >
         <View className="flex flex-row items-center justify-between gap-10">
           <View className="flex flex-col items-start">
             <Text className="text-black-200 text-xs font-rubik-medium">

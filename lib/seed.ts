@@ -25,28 +25,19 @@ const propertyTypes = [
   "Others",
 ];
 
-const facilities = [
-  "Laundry",
-  "Car Parking",
-  "Sports Center",
-  "Cutlery",
-  "Gym",
-  "Swimming pool",
-  "Wifi",
-  "Pet Center",
-];
+const facilities = ["Laundry", "Cutlery", "Gym", "Wifi", "Pet-Center"];
 
 function getRandomSubset<T>(
   array: T[],
   minItems: number,
-  maxItems: number
+  maxItems: number,
 ): T[] {
   if (minItems > maxItems) {
     throw new Error("minItems cannot be greater than maxItems");
   }
   if (minItems < 0 || maxItems > array.length) {
     throw new Error(
-      "minItems or maxItems are out of valid range for the array"
+      "minItems or maxItems are out of valid range for the array",
     );
   }
 
@@ -77,13 +68,13 @@ async function seed() {
       const collectionId = COLLECTIONS[key as keyof typeof COLLECTIONS];
       const documents = await databases.listDocuments(
         config.databaseId!,
-        collectionId!
+        collectionId!,
       );
       for (const doc of documents.documents) {
         await databases.deleteDocument(
           config.databaseId!,
           collectionId!,
-          doc.$id
+          doc.$id,
         );
       }
     }
@@ -101,7 +92,7 @@ async function seed() {
           name: `Agent ${i}`,
           email: `agent${i}@example.com`,
           avatar: agentImages[Math.floor(Math.random() * agentImages.length)],
-        }
+        },
       );
       agents.push(agent);
     }
@@ -119,12 +110,11 @@ async function seed() {
           avatar: reviewImages[Math.floor(Math.random() * reviewImages.length)],
           review: `This is a review by Reviewer ${i}.`,
           rating: Math.floor(Math.random() * 5) + 1, // Rating between 1 and 5
-        }
+        },
       );
       reviews.push(review);
     }
     console.log(`Seeded ${reviews.length} reviews.`);
-
     // Seed Galleries
     const galleries = [];
     for (const image of galleryImages) {
@@ -132,7 +122,7 @@ async function seed() {
         config.databaseId!,
         COLLECTIONS.GALLERY!,
         ID.unique(),
-        { image }
+        { image },
       );
       galleries.push(gallery);
     }
@@ -177,7 +167,7 @@ async function seed() {
           agent: assignedAgent.$id,
           reviews: assignedReviews.map((review) => review.$id),
           gallery: assignedGalleries.map((gallery) => gallery.$id),
-        }
+        },
       );
 
       console.log(`Seeded property: ${property.name}`);

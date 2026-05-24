@@ -1,0 +1,13 @@
+{
+  "ignore_dirs": [
+    ".git",
+    ".next",
+    "node_modules",
+    ".expo",
+    "build",
+    "dist",
+    "android/build",
+    "ios/Pods"
+  ],
+  "watch_from_root": true
+}
