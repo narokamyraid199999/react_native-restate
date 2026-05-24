@@ -2,6 +2,7 @@ import { useEffect } from "react";
 import { Stack, usePathname, useRouter } from "expo-router";
 import { useFonts } from "expo-font";
 import * as SplashScreen from "expo-splash-screen";
+import "@/lib/i18n";
 
 import "./global.css";
 import GlobalProvider from "@/lib/global-provider";

@@ -8,15 +8,16 @@ import {
   ActivityIndicator,
   View,
   RefreshControl,
-  TouchableWithoutFeedback,
+  Pressable,
 } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
-
+import * as Haptics from "expo-haptics";
 import { logout } from "@/lib/appwrite";
 import { useGlobalContext } from "@/lib/global-provider";
 import { router } from "expo-router";
 import icons from "@/constants/icons";
 import { settings } from "@/constants/data";
+import { useState } from "react";
 
 interface SettingsItemProp {
   icon: ImageSourcePropType;
@@ -35,7 +36,7 @@ const SettingsItem = ({
 }: SettingsItemProp) => (
   <TouchableOpacity
     onPress={onPress}
-    className="flex flex-row items-center justify-between py-3"
+    className="flex flex-row items-center justify-between py-3.5"
   >
     <View className="flex flex-row items-center gap-3">
       <Image source={icon} className="size-6" />
@@ -49,6 +50,7 @@ const SettingsItem = ({
 
 const Profile = () => {
   const { user, refetch, loading } = useGlobalContext();
+  const [currentLanguage, setCurrentLanguage] = useState("en"); // This should come from your state or context
 
   const handleLogout = async () => {
     const result = await logout();
@@ -58,6 +60,12 @@ const Profile = () => {
     } else {
       Alert.alert("Error", "Failed to logout");
     }
+  };
+
+  const changeLanguage = async (lang: "en" | "ar") => {
+    // Implement language change logic here
+    await Haptics.performAndroidHapticsAsync(Haptics.AndroidHaptics.Long_Press);
+    setCurrentLanguage(lang);
   };
 
   const handleRefresh = async () => {
@@ -95,7 +103,7 @@ const Profile = () => {
           contentContainerClassName="pb-32 px-7 bg-white"
         >
           <View className="flex flex-row items-center justify-between mt-5">
-            <View className="flex flex-row items-center gap-3">
+            <View className="flex flex-row items-center gap-4">
               <TouchableOpacity
                 onPress={() => router.back()}
                 className="flex flex-row bg-primary-200 rounded-full size-11 items-center justify-center"
@@ -119,6 +127,55 @@ const Profile = () => {
 
               <Text className="text-xl font-rubik-bold mt-2">{user?.name}</Text>
             </View>
+          </View>
+
+          <View className="flex flex-row items-center gap-4  mt-10 border-b pb-6 border-primary-200">
+            <View className="flex flex-row items-center gap-3">
+              <Image source={icons.language} className="size-6" />
+              <Text className="text-lg font-rubik-medium text-black-300">
+                Language
+              </Text>
+            </View>
+
+            {/* English */}
+            <Pressable
+              onPress={() => changeLanguage("en")}
+              className={`flex-row items-center justify-between rounded-2xl  border border-gray-400 py-2.5 px-3 flex-1 ${
+                currentLanguage === "en"
+                  ? "border-blue-400 bg-blue-200"
+                  : "border-gray-400"
+              }`}
+            >
+              <Text className="text-lg font-semibold">{"English"}</Text>
+
+              <View
+                className={`h-5 w-5 rounded-full border-2 ${
+                  currentLanguage === "en"
+                    ? "border-blue-400 bg-blue-400"
+                    : "border-gray-400"
+                }`}
+              />
+            </Pressable>
+
+            {/* Arabic */}
+            <Pressable
+              onPress={() => changeLanguage("ar")}
+              className={`flex-row items-center justify-between rounded-2xl border border-gray-400 py-2.5 px-3 flex-1 ${
+                currentLanguage === "ar"
+                  ? "border-blue-400 bg-blue-200"
+                  : "border-gray-400"
+              }`}
+            >
+              <Text className="text-lg font-semibold">{"العربية"}</Text>
+
+              <View
+                className={`h-5 w-5 rounded-full border-2 ${
+                  currentLanguage === "ar"
+                    ? "border-blue-400 bg-blue-300"
+                    : "border-gray-400"
+                }`}
+              />
+            </Pressable>
           </View>
 
           <View className="flex flex-col mt-10">

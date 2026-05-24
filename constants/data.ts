@@ -88,10 +88,10 @@ export const settings = [
     title: "Security",
     icon: icons.shield,
   },
-  {
-    title: "Language",
-    icon: icons.language,
-  },
+  // {
+  //   title: "Language",
+  //   icon: icons.language,
+  // },
   {
     title: "Help Center",
     icon: icons.info,
