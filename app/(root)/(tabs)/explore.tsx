@@ -10,6 +10,7 @@ import {
 import { useEffect } from "react";
 import { router, useLocalSearchParams } from "expo-router";
 import { SafeAreaView } from "react-native-safe-area-context";
+import { useTranslation } from "react-i18next";
 
 import icons from "@/constants/icons";
 import Search from "@/components/Search";
@@ -21,6 +22,7 @@ import { getProperties } from "@/lib/appwrite";
 import { useAppwrite } from "@/lib/useAppwrite";
 
 const Explore = () => {
+  const { t } = useTranslation();
   const params = useLocalSearchParams<{ query?: string; filter?: string }>();
 
   const {
@@ -107,7 +109,7 @@ const Explore = () => {
                 </TouchableOpacity>
 
                 <Text className="text-base mr-2 text-center font-rubik-medium text-black-300">
-                  Search for Your Ideal Home
+                  {t("search.heading")}
                 </Text>
                 <Image source={icons.bell} className="w-6 h-6" />
               </View>
@@ -118,7 +120,9 @@ const Explore = () => {
                 <Filters />
 
                 <Text className="text-xl font-rubik-bold text-black-300 mt-5">
-                  Found {properties?.length} Properties
+                  {t("explore.foundProperties", {
+                    count: properties?.length ?? 0,
+                  })}
                 </Text>
               </View>
             </View>

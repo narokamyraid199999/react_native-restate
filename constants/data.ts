@@ -56,15 +56,31 @@ export const featuredCards = [
 ];
 
 export const categories = [
-  { title: "All", category: "All" },
-  { title: "Houses", category: "House" },
-  { title: "Condos", category: "Condos" },
-  { title: "Duplexes", category: "Duplexes" },
-  { title: "Studios", category: "Studios" },
-  { title: "Villas", category: "Villa" },
-  { title: "Apartments", category: "Apartments" },
-  { title: "Townhomes", category: "Townhomes" },
-  { title: "Others", category: "Others" },
+  { title: "All", category: "All", translationKey: "categories.all" },
+  { title: "Houses", category: "House", translationKey: "categories.houses" },
+  { title: "Condos", category: "Condos", translationKey: "categories.condos" },
+  {
+    title: "Duplexes",
+    category: "Duplexes",
+    translationKey: "categories.duplexes",
+  },
+  {
+    title: "Studios",
+    category: "Studios",
+    translationKey: "categories.studios",
+  },
+  { title: "Villas", category: "Villa", translationKey: "categories.villas" },
+  {
+    title: "Apartments",
+    category: "Apartments",
+    translationKey: "categories.apartments",
+  },
+  {
+    title: "Townhomes",
+    category: "Townhomes",
+    translationKey: "categories.townhomes",
+  },
+  { title: "Others", category: "Others", translationKey: "categories.others" },
 ];
 
 export const settings = [
@@ -75,7 +91,7 @@ export const settings = [
   },
   {
     title: "Payments",
-    slug: "payments",
+    slug: "profile.payments",
     icon: icons.wallet,
   },
   {
@@ -113,34 +129,42 @@ export const facilities = [
   {
     title: "Laundry",
     icon: icons.laundry,
+    translationKey: "facilities.laundry",
   },
   {
     title: "Car Parking",
     icon: icons.carPark,
+    translationKey: "facilities.carParking",
   },
   {
     title: "Sports Center",
     icon: icons.run,
+    translationKey: "facilities.sportsCenter",
   },
   {
     title: "Cutlery",
     icon: icons.cutlery,
+    translationKey: "facilities.cutlery",
   },
   {
     title: "Gym",
     icon: icons.dumbell,
+    translationKey: "facilities.gym",
   },
   {
     title: "Swimming pool",
     icon: icons.swim,
+    translationKey: "facilities.swimmingPool",
   },
   {
     title: "Wifi",
     icon: icons.wifi,
+    translationKey: "facilities.wifi",
   },
   {
     title: "Pet Center",
     icon: icons.dog,
+    translationKey: "facilities.petCenter",
   },
 ];
 

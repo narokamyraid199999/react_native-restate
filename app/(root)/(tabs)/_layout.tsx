@@ -35,7 +35,7 @@ const TabIcon = ({
 
 const TabsLayout = () => {
   const inset = useSafeAreaInsets();
-  const tabBarHeight = inset.bottom > 0 ? 50 + inset.bottom : 50;
+  const tabBarHeight = inset.bottom > 0 ? 70 + inset.bottom : 70;
   const { t } = useTranslation();
 
   return (

@@ -1,10 +1,12 @@
 import React, { useState } from "react";
 import { router, useLocalSearchParams } from "expo-router";
 import { Text, ScrollView, TouchableOpacity } from "react-native";
+import { useTranslation } from "react-i18next";
 
 import { categories } from "@/constants/data";
 
 const Filters = () => {
+  const { t } = useTranslation();
   const params = useLocalSearchParams<{ filter?: string }>();
   const [selectedCategory, setSelectedCategory] = useState(
     params.filter || "All",
@@ -44,7 +46,7 @@ const Filters = () => {
                 : "text-black-300 font-rubik"
             }`}
           >
-            {item.title}
+            {t(item.translationKey)}
           </Text>
         </TouchableOpacity>
       ))}

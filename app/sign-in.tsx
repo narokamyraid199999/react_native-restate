@@ -8,6 +8,7 @@ import {
   TouchableOpacity,
   View,
 } from "react-native";
+import { useTranslation } from "react-i18next";
 
 import { login } from "@/lib/appwrite";
 import { Redirect } from "expo-router";
@@ -16,6 +17,7 @@ import icons from "@/constants/icons";
 import images from "@/constants/images";
 
 const Auth = () => {
+  const { t } = useTranslation();
   const { refetch, loading, isLogged } = useGlobalContext();
 
   if (!loading && isLogged) return <Redirect href="/" />;
@@ -25,7 +27,7 @@ const Auth = () => {
     if (result) {
       refetch();
     } else {
-      Alert.alert("Error", "Failed to login");
+      Alert.alert(t("error"), t("loginError"));
     }
   };
 
@@ -44,16 +46,16 @@ const Auth = () => {
 
         <View className="px-10">
           <Text className="text-base text-center uppercase font-rubik text-black-200">
-            Welcome To Real Scout
+            {t("welcome")}
           </Text>
 
           <Text className="text-3xl font-rubik-bold text-black-300 text-center mt-2">
-            Let's Get You Closer To {"\n"}
-            <Text className="text-primary-300">Your Ideal Home</Text>
+            {t("tagline")} {"\n"}
+            <Text className="text-primary-300">{t("idealHome")}</Text>
           </Text>
 
           <Text className="text-lg font-rubik text-black-200 text-center mt-12">
-            Login to Real Scout with Google
+            {t("loginPrompt")}
           </Text>
 
           <TouchableOpacity
@@ -67,7 +69,7 @@ const Auth = () => {
                 resizeMode="contain"
               />
               <Text className="text-lg font-rubik-medium text-black-300 ml-2">
-                Continue with Google
+                {t("continueWithGoogle")}
               </Text>
             </View>
           </TouchableOpacity>

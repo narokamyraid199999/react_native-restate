@@ -60,10 +60,10 @@ const Profile = () => {
   const handleLogout = async () => {
     const result = await logout();
     if (result) {
-      Alert.alert("Success", "Logged out successfully");
+      Alert.alert(t("success"), t("profile.successLogout"));
       refetch();
     } else {
-      Alert.alert("Error", "Failed to logout");
+      Alert.alert(t("error"), t("profile.errorLogout"));
     }
   };
 
@@ -153,7 +153,9 @@ const Profile = () => {
                   : "border-gray-400"
               }`}
             >
-              <Text className="text-lg font-semibold">{"English"}</Text>
+              <Text className="text-lg font-semibold">
+                {t("profile.english")}
+              </Text>
 
               <View
                 className={`h-5 w-5 rounded-full border-2 ${
@@ -173,7 +175,9 @@ const Profile = () => {
                   : "border-gray-400"
               }`}
             >
-              <Text className="text-lg font-semibold">{"العربية"}</Text>
+              <Text className="text-lg font-semibold">
+                {t("profile.arabic")}
+              </Text>
 
               <View
                 className={`h-5 w-5 rounded-full border-2 ${

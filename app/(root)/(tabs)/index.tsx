@@ -11,6 +11,7 @@ import {
 import { useEffect } from "react";
 import { router, useLocalSearchParams } from "expo-router";
 import { SafeAreaView } from "react-native-safe-area-context";
+import { useTranslation } from "react-i18next";
 
 import icons from "@/constants/icons";
 
@@ -24,6 +25,7 @@ import { useGlobalContext } from "@/lib/global-provider";
 import { getLatestProperties, getProperties } from "@/lib/appwrite";
 
 const Home = () => {
+  const { t } = useTranslation();
   const { user } = useGlobalContext();
 
   const params = useLocalSearchParams<{ query?: string; filter?: string }>();
@@ -123,7 +125,7 @@ const Home = () => {
 
                     <View className="flex flex-col items-start ml-2 justify-center">
                       <Text className="text-xs font-rubik text-black-100">
-                        Good Morning
+                        {t("goodMorning")}
                       </Text>
                       <Text className="text-base font-rubik-medium text-black-300">
                         {user?.name}
@@ -139,11 +141,11 @@ const Home = () => {
               <View className="my-5">
                 <View className="flex flex-row items-center justify-between">
                   <Text className="text-xl font-rubik-bold text-black-300">
-                    Featured
+                    {t("featured")}
                   </Text>
                   <TouchableOpacity>
                     <Text className="text-base font-rubik-bold text-primary-300">
-                      See all
+                      {t("seeAll")}
                     </Text>
                   </TouchableOpacity>
                 </View>
@@ -177,11 +179,11 @@ const Home = () => {
               <View className="mt-5">
                 <View className="flex flex-row items-center justify-between">
                   <Text className="text-xl font-rubik-bold text-black-300">
-                    Our Recommendation
+                    {t("ourRecommendation")}
                   </Text>
                   <TouchableOpacity>
                     <Text className="text-base font-rubik-bold text-primary-300">
-                      See all
+                      {t("seeAll")}
                     </Text>
                   </TouchableOpacity>
                 </View>

@@ -10,6 +10,7 @@ import {
   RefreshControl,
 } from "react-native";
 import { router, useLocalSearchParams } from "expo-router";
+import { useTranslation } from "react-i18next";
 
 import icons from "@/constants/icons";
 import images from "@/constants/images";
@@ -21,6 +22,7 @@ import { getPropertyById } from "@/lib/appwrite";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 
 const Property = () => {
+  const { t } = useTranslation();
   const { id } = useLocalSearchParams<{ id?: string }>();
 
   const windowHeight = Dimensions.get("window").height;
@@ -120,8 +122,11 @@ const Property = () => {
             <View className="flex flex-row items-center gap-2">
               <Image source={icons.star} className="size-5" />
               <Text className="text-black-200 text-sm mt-1 font-rubik-medium">
-                {property?.rating} {property?.reviews.length}
-                reviews)
+                {property?.rating} (
+                {t("property.reviews", {
+                  count: property?.reviews?.length ?? 0,
+                })}
+                )
               </Text>
             </View>
           </View>
@@ -131,25 +136,25 @@ const Property = () => {
               <Image source={icons.bed} className="size-4" />
             </View>
             <Text className="text-black-300 text-sm font-rubik-medium ml-2">
-              {property?.bedrooms} Beds
+              {t("property.beds", { count: property?.bedrooms ?? 0 })}
             </Text>
             <View className="flex flex-row items-center justify-center bg-primary-100 rounded-full size-10 ml-7">
               <Image source={icons.bath} className="size-4" />
             </View>
             <Text className="text-black-300 text-sm font-rubik-medium ml-2">
-              {property?.bathrooms} Baths
+              {t("property.baths", { count: property?.bathrooms ?? 0 })}
             </Text>
             <View className="flex flex-row items-center justify-center bg-primary-100 rounded-full size-10 ml-7">
               <Image source={icons.area} className="size-4" />
             </View>
             <Text className="text-black-300 text-sm font-rubik-medium ml-2">
-              {property?.area} sqft
+              {t("property.sqft", { count: property?.area ?? 0 })}
             </Text>
           </View>
 
           <View className="w-full border-t border-primary-200 pt-7 mt-5">
             <Text className="text-black-300 text-xl font-rubik-bold">
-              Agent
+              {t("property.agent")}
             </Text>
 
             <View className="flex flex-row items-center justify-between mt-4">
@@ -178,7 +183,7 @@ const Property = () => {
 
           <View className="mt-7">
             <Text className="text-black-300 text-xl font-rubik-bold">
-              Overview
+              {t("property.overview")}
             </Text>
             <Text className="text-black-200 text-base font-rubik mt-2">
               {property?.description}
@@ -187,7 +192,7 @@ const Property = () => {
 
           <View className="mt-7">
             <Text className="text-black-300 text-xl font-rubik-bold">
-              Facilities
+              {t("property.facilities")}
             </Text>
 
             {property?.facilities.length > 0 && (
@@ -214,7 +219,7 @@ const Property = () => {
                         ellipsizeMode="tail"
                         className="text-black-300 text-sm text-center font-rubik mt-1.5"
                       >
-                        {item}
+                        {facility ? t(facility.translationKey) : item}
                       </Text>
                     </View>
                   );
@@ -226,7 +231,7 @@ const Property = () => {
           {property?.gallery.length > 0 && (
             <View className="mt-7">
               <Text className="text-black-300 text-xl font-rubik-bold">
-                Gallery
+                {t("property.gallery")}
               </Text>
               <FlatList
                 contentContainerStyle={{ paddingRight: 20 }}
@@ -247,7 +252,7 @@ const Property = () => {
 
           <View className="mt-7">
             <Text className="text-black-300 text-xl font-rubik-bold">
-              Location
+              {t("property.location")}
             </Text>
             <View className="flex flex-row items-center justify-start mt-4 gap-2">
               <Image source={icons.location} className="w-7 h-7" />
@@ -268,13 +273,17 @@ const Property = () => {
                 <View className="flex flex-row items-center">
                   <Image source={icons.star} className="size-6" />
                   <Text className="text-black-300 text-xl font-rubik-bold ml-2">
-                    {property?.rating} ({property?.reviews.length} reviews)
+                    {property?.rating} (
+                    {t("property.reviews", {
+                      count: property?.reviews?.length ?? 0,
+                    })}
+                    )
                   </Text>
                 </View>
 
                 <TouchableOpacity>
                   <Text className="text-primary-300 text-base font-rubik-bold">
-                    View All
+                    {t("property.viewAll")}
                   </Text>
                 </TouchableOpacity>
               </View>
@@ -294,7 +303,7 @@ const Property = () => {
         <View className="flex flex-row items-center justify-between gap-10">
           <View className="flex flex-col items-start">
             <Text className="text-black-200 text-xs font-rubik-medium">
-              Price
+              {t("property.price")}
             </Text>
             <Text
               numberOfLines={1}
@@ -306,7 +315,7 @@ const Property = () => {
 
           <TouchableOpacity className="flex-1 flex flex-row items-center justify-center bg-primary-300 py-3 rounded-full shadow-md shadow-zinc-400">
             <Text className="text-white text-lg text-center font-rubik-bold">
-              Book Now
+              {t("property.bookNow")}
             </Text>
           </TouchableOpacity>
         </View>
