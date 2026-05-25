@@ -14,7 +14,7 @@ const TabIcon = ({
   icon: ImageSourcePropType;
   title: string;
 }) => (
-  <View className="flex-1 mt-3 flex flex-col items-center">
+  <View className="flex-1 mt-2 flex flex-col items-center">
     <Image
       source={icon}
       tintColor={focused ? "#0061FF" : "#666876"}
@@ -35,7 +35,7 @@ const TabIcon = ({
 
 const TabsLayout = () => {
   const inset = useSafeAreaInsets();
-  const tabBarHeight = inset.bottom > 0 ? 70 + inset.bottom : 70;
+  const tabBarHeight = inset.bottom > 0 ? 60 + inset.bottom : 60;
   const { t } = useTranslation();
 
   return (

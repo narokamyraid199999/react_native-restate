@@ -17,9 +17,10 @@ import { useGlobalContext } from "@/lib/global-provider";
 import { router } from "expo-router";
 import icons from "@/constants/icons";
 import { settings } from "@/constants/data";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import i18n from "@/lib/i18n";
 import { useTranslation } from "react-i18next";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 interface SettingsItemProp {
   icon: ImageSourcePropType;
@@ -54,8 +55,14 @@ const SettingsItem = ({
 
 const Profile = () => {
   const { user, refetch, loading } = useGlobalContext();
-  const [currentLanguage, setCurrentLanguage] = useState(i18n.language); // This should come from your state or context
   const { t } = useTranslation();
+
+  // useEffect(() => {
+  //   const saveLanguage = async () => {
+  //     await AsyncStorage.setItem("language", i18n.language);
+  //   };
+  //   saveLanguage();
+  // }, [i18n.language]);
 
   const handleLogout = async () => {
     const result = await logout();
@@ -70,7 +77,6 @@ const Profile = () => {
   const changeLanguage = async (lang: "en" | "ar") => {
     await Haptics.performAndroidHapticsAsync(Haptics.AndroidHaptics.Long_Press);
     await i18n.changeLanguage(lang);
-    setCurrentLanguage(lang);
   };
 
   const handleRefresh = async () => {
@@ -148,7 +154,7 @@ const Profile = () => {
             <Pressable
               onPress={() => changeLanguage("en")}
               className={`flex-row items-center justify-between rounded-2xl  border border-gray-400 py-2 px-3 flex-1 ${
-                currentLanguage === "en"
+                i18n.language === "en"
                   ? "border-blue-400 bg-blue-200"
                   : "border-gray-400"
               }`}
@@ -159,7 +165,7 @@ const Profile = () => {
 
               <View
                 className={`h-5 w-5 rounded-full border-2 ${
-                  currentLanguage === "en"
+                  i18n.language === "en"
                     ? "border-blue-400 bg-blue-400"
                     : "border-gray-400"
                 }`}
@@ -170,7 +176,7 @@ const Profile = () => {
             <Pressable
               onPress={() => changeLanguage("ar")}
               className={`flex-row items-center justify-between rounded-2xl border border-gray-400 py-2 px-3 flex-1 ${
-                currentLanguage === "ar"
+                i18n.language === "ar"
                   ? "border-blue-400 bg-blue-200"
                   : "border-gray-400"
               }`}
@@ -181,7 +187,7 @@ const Profile = () => {
 
               <View
                 className={`h-5 w-5 rounded-full border-2 ${
-                  currentLanguage === "ar"
+                  i18n.language === "ar"
                     ? "border-blue-400 bg-blue-300"
                     : "border-gray-400"
                 }`}
