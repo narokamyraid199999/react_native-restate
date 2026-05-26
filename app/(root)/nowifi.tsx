@@ -1,7 +1,8 @@
 import icons from "@/constants/icons";
-import { Image, Text } from "react-native";
+import { Image } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { useTranslation } from "react-i18next";
+import { LocalizedText as Text } from "@/components/LocalizedText";
 
 export default function NoWifi() {
   const { t } = useTranslation();

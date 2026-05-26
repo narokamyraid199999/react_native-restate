@@ -1,9 +1,7 @@
 import {
   ActivityIndicator,
-  FlatList,
   Image,
   RefreshControl,
-  Text,
   TouchableOpacity,
   View,
 } from "react-native";
@@ -11,6 +9,7 @@ import { useEffect } from "react";
 import { router, useLocalSearchParams } from "expo-router";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { useTranslation } from "react-i18next";
+import { LocalizedText as Text } from "@/components/LocalizedText";
 
 import icons from "@/constants/icons";
 import Search from "@/components/Search";
@@ -20,6 +19,7 @@ import NoResults from "@/components/NoResults";
 
 import { getProperties } from "@/lib/appwrite";
 import { useAppwrite } from "@/lib/useAppwrite";
+import { FlashList } from "@shopify/flash-list";
 
 const Explore = () => {
   const { t } = useTranslation();
@@ -71,15 +71,21 @@ const Explore = () => {
   return (
     <SafeAreaView className="h-full">
       <View className="flex-1 bg-white">
-        <FlatList
+        <FlashList
           data={properties}
           numColumns={2}
-          renderItem={({ item }) => (
-            <Card item={item} onPress={() => handleCardPress(item.$id)} />
-          )}
+          renderItem={({ item, index }) => {
+            const isLeftColumn = index % 2 === 0;
+            return (
+              <View
+                className={`flex-1 ${isLeftColumn ? "pr-2.5" : "pl-2.5"} mb-4`}
+              >
+                <Card item={item} onPress={() => handleCardPress(item.$id)} />
+              </View>
+            );
+          }}
           keyExtractor={(item) => item.$id}
-          contentContainerClassName="pb-32"
-          columnWrapperClassName="flex gap-5 px-5"
+          contentContainerClassName="pb-32 px-5"
           showsVerticalScrollIndicator={false}
           refreshControl={
             <RefreshControl
@@ -99,7 +105,7 @@ const Explore = () => {
             )
           }
           ListHeaderComponent={() => (
-            <View className="px-5">
+            <View>
               <View className="flex flex-row items-center justify-between mt-5">
                 <TouchableOpacity
                   onPress={() => router.back()}

@@ -3,7 +3,6 @@ import {
   FlatList,
   Image,
   RefreshControl,
-  Text,
   TouchableOpacity,
   TouchableWithoutFeedback,
   View,
@@ -12,6 +11,8 @@ import { useEffect } from "react";
 import { router, useLocalSearchParams } from "expo-router";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { useTranslation } from "react-i18next";
+import { LocalizedText as Text } from "@/components/LocalizedText";
+import { FlashList } from "@shopify/flash-list";
 
 import icons from "@/constants/icons";
 
@@ -84,12 +85,17 @@ const Home = () => {
   return (
     <SafeAreaView className="h-full">
       <View className="flex-1 bg-white">
-        <FlatList
+        <FlashList
           data={properties}
           numColumns={2}
-          renderItem={({ item }) => (
-            <Card item={item} onPress={() => handleCardPress(item.$id)} />
-          )}
+          renderItem={({ item, index }) => {
+            const isLeftColumn = index % 2 === 0;
+            return (
+              <View className={`flex-1 ${isLeftColumn ? "pr-2" : "pl-2"} mb-4`}>
+                <Card item={item} onPress={() => handleCardPress(item.$id)} />
+              </View>
+            );
+          }}
           keyExtractor={(item) => item.$id}
           refreshControl={
             <RefreshControl
@@ -98,8 +104,7 @@ const Home = () => {
               colors={["#4040d8"]}
             ></RefreshControl>
           }
-          contentContainerClassName="pb-32"
-          columnWrapperClassName="flex gap-5 px-5"
+          contentContainerClassName="pb-32 px-5"
           showsVerticalScrollIndicator={false}
           ListEmptyComponent={
             loading ? (
@@ -112,7 +117,7 @@ const Home = () => {
             )
           }
           ListHeaderComponent={() => (
-            <View className="px-5">
+            <View>
               <View className="flex flex-row items-center justify-between mt-5">
                 <TouchableWithoutFeedback
                   onPress={() => router.push("/(root)/(tabs)/profile")}

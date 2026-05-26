@@ -2,15 +2,18 @@ import {
   FlatList,
   Image,
   ScrollView,
-  Text,
   TouchableOpacity,
   View,
   Dimensions,
   ActivityIndicator,
   RefreshControl,
+  Pressable,
+  Share,
+  Alert,
 } from "react-native";
 import { router, useLocalSearchParams } from "expo-router";
 import { useTranslation } from "react-i18next";
+import { LocalizedText as Text } from "@/components/LocalizedText";
 
 import icons from "@/constants/icons";
 import images from "@/constants/images";
@@ -45,6 +48,21 @@ const Property = () => {
       await refetch({ id: id! });
     } catch (error) {
       console.error("Failed to refresh:", error);
+    }
+  };
+
+  const shareProperty = async () => {
+    try {
+      await Share.share({
+        message: `Check out this property: ${property?.name} - ${property?.description}`,
+        url: property?.image,
+        title: property?.name,
+      });
+    } catch (error) {
+      Alert.alert(
+        "Error sharing property",
+        "An error occurred while trying to share the property. Please try again.",
+      );
     }
   };
 
@@ -95,13 +113,15 @@ const Property = () => {
                 <Image source={icons.backArrow} className="size-5" />
               </TouchableOpacity>
 
-              <View className="flex flex-row items-center gap-3">
+              <View className="flex flex-row items-center gap-5">
                 <Image
                   source={icons.heart}
-                  className="size-7"
+                  className="size-8 "
                   tintColor={"#191D31"}
                 />
-                <Image source={icons.send} className="size-7" />
+                <Pressable onPress={shareProperty}>
+                  <Image source={icons.send} className="size-8" />
+                </Pressable>
               </View>
             </View>
           </View>

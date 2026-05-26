@@ -10,6 +10,15 @@ export default {
   goodMorning: "صباح الخير",
   featured: "مميز",
   seeAll: "عرض الكل",
+  contactUs: {
+    title: "اتصل بنا",
+    fullName: "الاسم الكامل",
+    emailAddress: "البريد الإلكتروني",
+    phoneNo: "رقم الهاتف",
+    message: "الرسالة",
+    send: "إرسال",
+    messageSent: "تم إرسال الرسالة بنجاح!",
+  },
   tabs: {
     home: "الرئيسية",
     explore: "استكشاف",

@@ -1,4 +1,5 @@
-import { View, Text, Image } from "react-native";
+import { View, Image } from "react-native";
+import { LocalizedText as Text } from "@/components/LocalizedText";
 
 import images from "@/constants/images";
 import icons from "@/constants/icons";

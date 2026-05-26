@@ -87,11 +87,14 @@ export const settings = [
   {
     title: "My Bookings",
     slug: "profile.myBookings",
+    url: null,
     icon: icons.calendar,
   },
   {
     title: "Payments",
     slug: "profile.payments",
+    url: null,
+
     icon: icons.wallet,
   },
   {
@@ -102,11 +105,13 @@ export const settings = [
   {
     title: "Notifications",
     slug: "profile.notifications",
+    url: null,
     icon: icons.bell,
   },
   {
     title: "Security",
     slug: "profile.security",
+    url: null,
     icon: icons.shield,
   },
   // {
@@ -116,11 +121,13 @@ export const settings = [
   {
     title: "Help Center",
     slug: "profile.helpCenter",
+    url: "contact-us",
     icon: icons.info,
   },
   {
     title: "Invite Friends",
     slug: "profile.inviteFriends",
+    url: null,
     icon: icons.people,
   },
 ];

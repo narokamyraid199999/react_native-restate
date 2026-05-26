@@ -1,14 +1,8 @@
 import React from "react";
 import { SafeAreaView } from "react-native-safe-area-context";
-import {
-  Alert,
-  Image,
-  ScrollView,
-  Text,
-  TouchableOpacity,
-  View,
-} from "react-native";
+import { Alert, Image, ScrollView, TouchableOpacity, View } from "react-native";
 import { useTranslation } from "react-i18next";
+import { LocalizedText as Text } from "@/components/LocalizedText";
 
 import { login } from "@/lib/appwrite";
 import { Redirect } from "expo-router";

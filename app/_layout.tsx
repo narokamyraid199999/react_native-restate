@@ -18,6 +18,12 @@ export default function RootLayout() {
     "Rubik-Medium": require("../assets/fonts/Rubik-Medium.ttf"),
     "Rubik-Regular": require("../assets/fonts/Rubik-Regular.ttf"),
     "Rubik-SemiBold": require("../assets/fonts/Rubik-SemiBold.ttf"),
+    "Cairo-Bold": require("../assets/fonts/Cairo-Bold.ttf"),
+    "Cairo-ExtraBold": require("../assets/fonts/Cairo-ExtraBold.ttf"),
+    "Cairo-Light": require("../assets/fonts/Cairo-Light.ttf"),
+    "Cairo-Medium": require("../assets/fonts/Cairo-Medium.ttf"),
+    "Cairo-Regular": require("../assets/fonts/Cairo-Regular.ttf"),
+    "Cairo-SemiBold": require("../assets/fonts/Cairo-SemiBold.ttf"),
   });
 
   const netInfo = useNetInfo();
@@ -52,7 +58,13 @@ export default function RootLayout() {
 
   return (
     <GlobalProvider>
-      <Stack screenOptions={{ headerShown: false }} />
+      <Stack screenOptions={{ headerShown: false }}>
+        <Stack.Screen name="(root)" />
+        <Stack.Screen
+          name="sign-in"
+          options={{ animation: "slide_from_left", animationDuration: 200 }}
+        />
+      </Stack>
     </GlobalProvider>
   );
 }

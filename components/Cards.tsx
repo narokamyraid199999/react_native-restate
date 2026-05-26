@@ -1,7 +1,8 @@
 import icons from "@/constants/icons";
 import images from "@/constants/images";
-import { Image, Text, TouchableWithoutFeedback, View } from "react-native";
+import { Image, TouchableWithoutFeedback, View } from "react-native";
 import { Models } from "react-native-appwrite";
+import { LocalizedText as Text } from "@/components/LocalizedText";
 
 interface Props {
   item: Models.DefaultDocument;

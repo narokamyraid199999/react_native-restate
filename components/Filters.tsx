@@ -1,7 +1,8 @@
 import React, { useState } from "react";
 import { router, useLocalSearchParams } from "expo-router";
-import { Text, ScrollView, TouchableOpacity } from "react-native";
+import { ScrollView, TouchableOpacity } from "react-native";
 import { useTranslation } from "react-i18next";
+import { LocalizedText as Text } from "@/components/LocalizedText";
 
 import { categories } from "@/constants/data";
 

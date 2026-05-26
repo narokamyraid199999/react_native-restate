@@ -5,6 +5,15 @@ export default {
   loginPrompt: "Login to Real Scout with Google",
   continueWithGoogle: "Continue with Google",
   loginError: "Failed to login",
+  contactUs: {
+    title: "Contact Us",
+    fullName: "Full Name",
+    emailAddress: "Email Address",
+    phoneNo: "Phone No",
+    message: "Message",
+    send: "Send",
+    messageSent: "Message sent successfully!",
+  },
   tabs: {
     home: "Home",
     explore: "Explore",

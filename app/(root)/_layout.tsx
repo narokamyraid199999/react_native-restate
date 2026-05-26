@@ -1,4 +1,4 @@
-import { Redirect, Slot } from "expo-router";
+import { Redirect, Slot, Stack } from "expo-router";
 import { ActivityIndicator } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 
@@ -19,5 +19,24 @@ export default function AppLayout() {
     return <Redirect href="/sign-in" />;
   }
 
-  return <Slot />;
+  return (
+    <Stack screenOptions={{ headerShown: false }}>
+      <Stack.Screen
+        name="(tabs)"
+        options={{ animation: "slide_from_left", animationDuration: 200 }}
+      />
+      <Stack.Screen
+        name="contact-us"
+        options={{ animation: "slide_from_left", animationDuration: 200 }}
+      />
+      <Stack.Screen
+        name="properties/[id]"
+        options={{ animation: "slide_from_left", animationDuration: 200 }}
+      />
+      <Stack.Screen
+        name="nowifi"
+        options={{ animation: "slide_from_left", animationDuration: 200 }}
+      />
+    </Stack>
+  );
 }

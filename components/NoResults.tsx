@@ -1,6 +1,7 @@
 import React from "react";
-import { View, Text, Image } from "react-native";
+import { View, Image } from "react-native";
 import { useTranslation } from "react-i18next";
+import { LocalizedText as Text } from "@/components/LocalizedText";
 
 import images from "@/constants/images";
 

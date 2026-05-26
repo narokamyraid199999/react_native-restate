@@ -3,24 +3,23 @@ import {
   Image,
   ImageSourcePropType,
   ScrollView,
-  Text,
   TouchableOpacity,
   ActivityIndicator,
   View,
   RefreshControl,
   Pressable,
 } from "react-native";
+import { LocalizedText as Text } from "@/components/LocalizedText";
 import { SafeAreaView } from "react-native-safe-area-context";
 import * as Haptics from "expo-haptics";
 import { logout } from "@/lib/appwrite";
 import { useGlobalContext } from "@/lib/global-provider";
-import { router } from "expo-router";
+import { useRouter } from "expo-router";
 import icons from "@/constants/icons";
 import { settings } from "@/constants/data";
-import { useEffect, useState } from "react";
 import i18n from "@/lib/i18n";
 import { useTranslation } from "react-i18next";
-import AsyncStorage from "@react-native-async-storage/async-storage";
+import { useLanguageFont, switchLanguage } from "@/lib/useLanguageFont";
 
 interface SettingsItemProp {
   icon: ImageSourcePropType;
@@ -56,13 +55,8 @@ const SettingsItem = ({
 const Profile = () => {
   const { user, refetch, loading } = useGlobalContext();
   const { t } = useTranslation();
-
-  // useEffect(() => {
-  //   const saveLanguage = async () => {
-  //     await AsyncStorage.setItem("language", i18n.language);
-  //   };
-  //   saveLanguage();
-  // }, [i18n.language]);
+  const router = useRouter();
+  useLanguageFont();
 
   const handleLogout = async () => {
     const result = await logout();
@@ -76,7 +70,7 @@ const Profile = () => {
 
   const changeLanguage = async (lang: "en" | "ar") => {
     await Haptics.performAndroidHapticsAsync(Haptics.AndroidHaptics.Long_Press);
-    await i18n.changeLanguage(lang);
+    await switchLanguage(lang);
   };
 
   const handleRefresh = async () => {
@@ -210,7 +204,14 @@ const Profile = () => {
 
           <View className="flex flex-col mt-5 border-t pt-5 border-primary-200">
             {settings.slice(2).map((item, index) => (
-              <SettingsItem key={index} {...item} slug={t(item.slug)} />
+              <SettingsItem
+                key={index}
+                {...item}
+                slug={t(item.slug)}
+                onPress={() => {
+                  if (item.url) router.push(`/${item.url!}`);
+                }}
+              />
             ))}
           </View>
 

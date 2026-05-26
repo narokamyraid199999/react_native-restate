@@ -1,5 +1,6 @@
 import { Tabs } from "expo-router";
-import { Image, ImageSourcePropType, Text, View } from "react-native";
+import { Image, ImageSourcePropType, View } from "react-native";
+import { LocalizedText as Text } from "@/components/LocalizedText";
 
 import icons from "@/constants/icons";
 import { useSafeAreaInsets } from "react-native-safe-area-context";

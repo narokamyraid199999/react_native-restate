@@ -11,6 +11,12 @@ module.exports = {
         "rubik-medium": ["Rubik-Medium", "sans-serif"],
         "rubik-semibold": ["Rubik-SemiBold", "sans-serif"],
         "rubik-light": ["Rubik-Light", "sans-serif"],
+        cairo: ["Cairo-Regular", "sans-serif"],
+        "cairo-bold": ["Cairo-Bold", "sans-serif"],
+        "cairo-extrabold": ["Cairo-ExtraBold", "sans-serif"],
+        "cairo-medium": ["Cairo-Medium", "sans-serif"],
+        "cairo-semibold": ["Cairo-SemiBold", "sans-serif"],
+        "cairo-light": ["Cairo-Light", "sans-serif"],
       },
       colors: {
         primary: {
